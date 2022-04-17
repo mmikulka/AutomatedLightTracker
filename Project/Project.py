@@ -18,13 +18,16 @@ class Project:
     def updateSpace(self, newSpace:Space):
         self.space = newSpace
 
-    def trackSubject(self, outputs, subjectID, fixtureNumbers=[1]): #need to change after fixture tests
+    def trackSubject(self, outputs, subjectID, fixtureNumbers=[0]): #need to change after fixture tests
         if fixtureNumbers is not None:
             x, y = self.getSubjectPos(outputs, subjectID)
-            x, y = self.space.getXYCoordinates((x, y))
+            xycoord = self.space.getxyCoordinates((x, y))
+            print(xycoord[0])
+            print(xycoord[1])
             for fixtureNumber in fixtureNumbers:
-                dmxUpdates = self.lights[fixtureNumber].focusLight(x, y)
-                self.sacn.updateFixtureValues(self.lights[fixtureNumber].fixtureAddr(), dmxUpdates)
+                print(fixtureNumber)
+                dmxUpdates = self.lights[fixtureNumber].focusLight(xycoord[0], xycoord[1])
+                self.sacn.updateFixtureValues(self.lights[fixtureNumber].fixtureAddr, dmxUpdates)
 
     def getSubjectPos(self, data, subject):
         # search through data to find index of subject

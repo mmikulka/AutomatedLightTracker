@@ -66,13 +66,6 @@ class Fixture:
     def universe(self, val):
         self._universe = val
 
-    @property
-    def fixtureAddr(self):
-        return self._fixtureAddr()
-
-    @fixtureAddr.setter
-    def fixtureAddr(self, newAddr):
-        self._fixtureAddr = newAddr
 
     def __calc_tilt(self, x, y, z):
         vect1 = (0, 0, 5)
@@ -84,19 +77,15 @@ class Fixture:
         rad = np.arccos(np.clip(np.dot(unitVect1, unitVect2), -1.0, 1.0))
         # convert radians to degrees
         angle = np.rad2deg(rad)
-        print("Tilt:")
-        print(angle)
         # convert degree to dmx value
         self._tilt = angle - self._tilt
         tiltChange = self.__tilt_angle_to_dmx(self._tilt)
-        print(tiltChange)
         self._dmx_vals[self._tilt_offset] += tiltChange
 
     def __calc_pan(self, x, y):
         cosTh = np.dot(self._panVect, (x, y))
         sinTh = np.cross(self._panVect, (x, y))
         angle = np.rad2deg(np.arctan2(sinTh, cosTh))
-        print(angle)
         self._pan = angle - self._pan
         panChange = self.__pan_angle_to_dmx(angle)
         self._dmx_vals[self._pan_offset] += panChange

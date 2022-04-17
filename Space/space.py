@@ -62,7 +62,8 @@ class Space:
 
             xyCoord = list()
             for pt in transformed_points_list:
-                xyCoord.append([pt[0] * self.widthInchPerPixel, pt[1] * self.heightInchPerPixel])
+                xyCoord.append(pt[0] * self.widthInchPerPixel)
+                xyCoord.append(pt[1] * self.heightInchPerPixel)
 
             logging.info('xy coordinates: ' + str(xyCoord))
 
