@@ -52,13 +52,14 @@ class Space:
     def getxyCoordinates(self, pts):
         if self._setup:
             list_points_to_detect = np.float32(pts).reshape(-1, 1, 2)
+            print(list_points_to_detect)
             transformed_points = cv2.perspectiveTransform(list_points_to_detect, self.birdMatrix)
             # Loop over the points and add them to the list that will be returned
             transformed_points_list = list()
             for i in range(0, transformed_points.shape[0]):
                 transformed_points_list.append([transformed_points[i][0][0], transformed_points[i][0][1]])
 
-            print(transformed_points_list)
+            print("transformed pts: " + str(transformed_points_list))
 
             xyCoord = list()
             for pt in transformed_points_list:

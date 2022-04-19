@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>SetupSpace</class>
  <widget class="QDialog" name="SetupSpace">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>658</width>
+    <height>699</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Space Setup</string>
   </property>
@@ -10,8 +18,8 @@
     <widget class="QLabel" name="label">
      <property name="minimumSize">
       <size>
-       <width>870</width>
-       <height>640</height>
+       <width>640</width>
+       <height>480</height>
       </size>
      </property>
      <property name="styleSheet">

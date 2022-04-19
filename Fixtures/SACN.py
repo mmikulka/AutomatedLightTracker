@@ -48,7 +48,7 @@ class SACN:
 
 # Test for Artnet output
 if __name__ == '__main__':
-    stream = SACN("10.32.212.186")
+    stream = SACN("10.101.50.120")
 
     for i in range(100):
         stream.updateAddressValue(i, 255)

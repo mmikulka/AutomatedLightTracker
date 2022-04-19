@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>655</width>
-    <height>432</height>
+    <height>449</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,6 +31,18 @@
      </item>
      <item>
       <widget class="QLabel" name="label_3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>20</pointsize>
@@ -73,7 +85,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="manufacturerEdit">
+      <widget class="QLineEdit" name="manufacturer">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -125,7 +137,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="zPosEdit">
+        <widget class="QLineEdit" name="zPos">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -150,7 +162,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="zRotEdit">
+        <widget class="QLineEdit" name="zRot">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -179,7 +191,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="xPosEdit">
+        <widget class="QLineEdit" name="xPos">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -204,7 +216,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="zPosEdit_5">
+        <widget class="QLineEdit" name="xRot">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -233,7 +245,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="zPosEdit_3">
+        <widget class="QLineEdit" name="yPos">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -253,12 +265,12 @@
           </font>
          </property>
          <property name="text">
-          <string>Y-Position</string>
+          <string>Y-Rotation</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="zPosEdit_6">
+        <widget class="QLineEdit" name="yRot">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -285,7 +297,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="totaNumAddressesEdit">
+      <widget class="QLineEdit" name="totaNumAddresses">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -296,27 +308,56 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_10">
+    <layout class="QHBoxLayout" name="horizontalLayout_19">
      <item>
-      <widget class="QLabel" name="label_11">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Start Address</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Start Address</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="startAddr">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QLineEdit" name="zPosEdit_7">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_18">
+       <item>
+        <widget class="QLabel" name="label_15">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Universe</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="Universe">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -335,7 +376,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="zPosEdit_8">
+      <widget class="QLineEdit" name="panOffset">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -360,11 +401,48 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="zPosEdit_9">
+      <widget class="QLineEdit" name="tiltOffset">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
         </font>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_17">
+     <item>
+      <widget class="QLabel" name="label_14">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Intensity Offset</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="intensityOffset"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_20">
+     <item>
+      <widget class="QPushButton" name="saveButton">
+       <property name="text">
+        <string>Save</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
+        <string>Cancel</string>
        </property>
       </widget>
      </item>

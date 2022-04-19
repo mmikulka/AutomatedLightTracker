@@ -8,8 +8,11 @@ import Camera.CameraCalibration
 
 class Project:
     def __init__(self):
-        self.lights = [Fixture((3, 3, 20), 37, 0, 2, 43, 44, 1, 540, 270, "Solaspot")]
+        self.lights = [Fixture((0, 0, 28), 37, 0, 2, 43, 1, 44, 540, 270, "Solaspot")]
         self.sacn = SACN(socket.gethostbyname(socket.gethostname()))
+        # self.sacn = SACN("10.101.50.120")
+        self.sacn.updateFixtureValues(self.lights[0].fixtureAddr,self.lights[0].dmxValues())
+        self.sacn.updatePacket()
         self.space = Space()
 
     def loadSettings(self):
@@ -22,12 +25,12 @@ class Project:
         if fixtureNumbers is not None:
             x, y = self.getSubjectPos(outputs, subjectID)
             xycoord = self.space.getxyCoordinates((x, y))
-            print(xycoord[0])
-            print(xycoord[1])
+            print("x coord: ", str(xycoord[0]))
+            print("y coord: ", str(xycoord[1]))
             for fixtureNumber in fixtureNumbers:
-                print(fixtureNumber)
                 dmxUpdates = self.lights[fixtureNumber].focusLight(xycoord[0], xycoord[1])
                 self.sacn.updateFixtureValues(self.lights[fixtureNumber].fixtureAddr, dmxUpdates)
+                self.sacn.updatePacket()
 
     def getSubjectPos(self, data, subject):
         # search through data to find index of subject
@@ -36,7 +39,7 @@ class Project:
             if item[4] == subject:
                 subjectIndex = i
         # take x1 + x2 and y2 this will be the position of the person
-        x = data[subjectIndex][0] - data[subjectIndex][2]
+        x = (data[subjectIndex][0] + data[subjectIndex][2]) / 2
         y = data[subjectIndex][3]
         return x, y
 

@@ -1,5 +1,7 @@
 import numpy as np
-
+# from SACN import SACN
+import socket
+import time
 
 class Fixture:
     def __init__(self, position: list, intensityAddr: int, panAddr: int, tiltAddr: int, totalNumAddresses: int,
@@ -16,10 +18,30 @@ class Fixture:
         self._totalTiltDeg = totalTiltDeg / 2  # straight down o tilt at 0.
         self._tilt = 0  # tilt starts straight downs
         self._pan = self._totalPanDeg / 2  # pan starts 1/2 way to max
-        self._panVect = (position[0], position[1] - 1)
+        self._panVect = (position[0], position[1] + 1)
         self._dmx_vals = [0] * totalNumAddresses
         self._dmx_vals[self._pan_offset] = 128
         self._dmx_vals[self._tilt_offset] = 128
+        self._dmx_vals[self._intensity_offset] = 255
+
+        #for Solaspots
+        self._dmx_vals[5] = 255
+        self._dmx_vals[6] = 255
+        self._dmx_vals[7] = 255
+        self._dmx_vals[8] = 255
+        self._dmx_vals[9] = 55
+        self._dmx_vals[14] = 127
+        self._dmx_vals[15] = 255
+        self._dmx_vals[19] = 127
+        self._dmx_vals[20] = 255
+        self._dmx_vals[25] = 127
+        self._dmx_vals[26] = 255
+        self._dmx_vals[34] = 255
+        self._dmx_vals[36] = 255
+        self._dmx_vals[37] = 255
+        self._dmx_vals[38] = 0
+        self._dmx_vals[41] = 135
+
 
     def focusLight(self, x, y, z=5):
         # Tilt
@@ -66,6 +88,8 @@ class Fixture:
     def universe(self, val):
         self._universe = val
 
+    def dmxValues(self):
+        return self._dmx_vals
 
     def __calc_tilt(self, x, y, z):
         vect1 = (0, 0, 5)
@@ -78,15 +102,18 @@ class Fixture:
         # convert radians to degrees
         angle = np.rad2deg(rad)
         # convert degree to dmx value
-        self._tilt = angle - self._tilt
-        tiltChange = self.__tilt_angle_to_dmx(self._tilt)
-        self._dmx_vals[self._tilt_offset] += tiltChange
+        # print("current tilt: " + str(self._tilt))
+        # print("angle calculated: " + str(angle))
+        self._tilt = angle
+        # print("new tilt: " + str(self._tilt))
+        self._dmx_vals[self._tilt_offset] = self.__tilt_angle_to_dmx(self._tilt)
 
     def __calc_pan(self, x, y):
         cosTh = np.dot(self._panVect, (x, y))
         sinTh = np.cross(self._panVect, (x, y))
         angle = np.rad2deg(np.arctan2(sinTh, cosTh))
-        self._pan = angle - self._pan
+        self._pan = self._pan - angle
+        self._panVect = (x, y)
         panChange = self.__pan_angle_to_dmx(angle)
         self._dmx_vals[self._pan_offset] += panChange
 
@@ -100,5 +127,30 @@ class Fixture:
 
 
 if __name__ == "__main__":
-    fix1 = Fixture((3, 3, 20), 14, 0, 2, 11, 1, 1, 540, 265)
-    fix1.focusLight(15, -20)
+    lights = [Fixture((0, 0, 28), 37, 0, 2, 43, 1, 44, 540, 270, "Solaspot")]
+    # self.sacn = SACN(socket.gethostbyname(socket.gethostname()))
+    sacn = SACN(socket.gethostbyname(socket.gethostname()))
+    sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
+    sacn.updatePacket()
+    time.sleep(1)
+    lights[0].focusLight(-10, 20, 5)
+    sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
+    print(lights[0].dmxValues())
+    sacn.updatePacket()
+    time.sleep(1)
+    lights[0].focusLight(-11, 20, 5)
+    sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
+    print(lights[0].dmxValues())
+    sacn.updatePacket()
+    time.sleep(1)
+    lights[0].focusLight(-10, 20, 5)
+    sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
+    print(lights[0].dmxValues())
+    sacn.updatePacket()
+    time.sleep(1)
+    lights[0].focusLight(-11, 20, 5)
+    sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
+    print(lights[0].dmxValues())
+    sacn.updatePacket()
+    time.sleep(10)
+    sacn.stop()

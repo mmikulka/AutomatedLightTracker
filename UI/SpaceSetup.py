@@ -30,6 +30,7 @@ class SpaceSetup(QDialog):
         pixmap = QPixmap(fname[0])
         self.image = cv2.imread(fname[0])
         self.label.setPixmap(pixmap.scaled(640, 480))
+        self.marker1.setChecked(True)
 
     def getPos(self, event):
         x = event.position().x()
@@ -39,15 +40,19 @@ class SpaceSetup(QDialog):
         if self.marker1.isChecked():
             self.marker1x.setText(str(x))
             self.marker1y.setText(str(y))
+            self.marker2.setChecked(True)
         elif self.marker2.isChecked():
             self.marker2x.setText(str(x))
             self.marker2y.setText(str(y))
+            self.marker3.setChecked(True)
         elif self.marker3.isChecked():
             self.marker3x.setText(str(x))
             self.marker3y.setText(str(y))
+            self.marker4.setChecked(True)
         elif self.marker4.isChecked():
             self.marker4x.setText(str(x))
             self.marker4y.setText(str(y))
+            self.marker1.setChecked(True)
 
     def spaceCalculations(self):
         ur = (float(self.marker1x.text()), float(self.marker1y.text()))

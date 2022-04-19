@@ -241,12 +241,11 @@ class LoadWebcam:  # for inference
     # YOLOv5 local webcam dataloader, i.e. `python detect.py --source 0`
     def __init__(self, pipe='0', img_size=640, stride=32):
         self.img_size = img_size
-        print(self.img_size)
         self.stride = stride
         self.pipe = eval(pipe) if pipe.isnumeric() else pipe
+        # self.pipe = 1
         self.cap = cv2.VideoCapture(self.pipe)  # video capture object
         self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 3)  # set buffer size
-
     def __iter__(self):
         self.count = -1
         return self
