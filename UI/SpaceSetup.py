@@ -29,13 +29,15 @@ class SpaceSetup(QDialog):
 
         pixmap = QPixmap(fname[0])
         self.image = cv2.imread(fname[0])
-        self.label.setPixmap(pixmap.scaled(640, 480))
+        # flippedImage = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+        # convertToQtFormat = QImage(flippedImage.data, flippedImage.shape[1], flippedImage.shape[0],
+        #                            QImage.Format.Format_RGB888)
+        self.label.setPixmap(pixmap.scaled(1280, 720))
         self.marker1.setChecked(True)
 
     def getPos(self, event):
         x = event.position().x()
         y = event.position().y()
-        self.mouseLocal.setText("x: %d /ty: %d)" % (x, y))
         #find what radial button is active
         if self.marker1.isChecked():
             self.marker1x.setText(str(x))
@@ -69,4 +71,6 @@ class SpaceSetup(QDialog):
         #     print("Space not setup")
         if self.space.setup:
             self.setupSpace.emit(self.space)
+
+        print(self.space)
         self.close()

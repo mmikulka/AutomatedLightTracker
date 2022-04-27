@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QDialog, QApplication, QFileDialog
 from PyQt6.uic import loadUi
 import UI.CameraCalibration
 import UI.ProjectWindow
+from UI.SpaceSetup import SpaceSetup
 
 
 class StartUp(QDialog):
@@ -21,8 +22,16 @@ class StartUp(QDialog):
     #open main window
     def newproject(self):
         self.projectWindow = UI.ProjectWindow.ProjectWindow()
+        self.spaceSetup = SpaceSetup()
         self.hide()
-        self.projectWindow.show()
+        self.spaceSetup.show()
+        self.spaceWindow.setupSpace.connect(self.saveSpace)
+        # self.projectWindow.show()
+
+    def saveSpace(self, newSpace):
+        pass
+
+
 
     def calibratecamera(self):
         self.camcalibration = UI.CameraCalibration.CameraCalibration()

@@ -39,7 +39,7 @@ class Tracker:
             #configure Deepsort
             cfg = get_config()
             cfg.merge_from_file(self.deepSortConfig)
-            self.deepSort= DeepSort(self.deepSortModel, max_dist = cfg.DEEPSORT.MAX_DIST,
+            self.deepSort = DeepSort(self.deepSortModel, max_dist = cfg.DEEPSORT.MAX_DIST,
                                 max_iou_distance = cfg.DEEPSORT.MAX_IOU_DISTANCE,
                                 max_age=cfg.DEEPSORT.MAX_AGE, n_init=cfg.DEEPSORT.N_INIT, nn_budget=cfg.DEEPSORT.NN_BUDGET,
                                 use_cuda=True)
@@ -49,7 +49,6 @@ class Tracker:
             self.half &= self.device.type != 'cpu'
 
             #load YOLO Model
-            self.device = select_device(self.device)
             self.model = DetectMultiBackend(self.yoloModel, device = self.device, dnn=True)
             stride, names, pt, jit, _ = self.model.stride, self.model.names, self.model.pt, self.model.jit, self.model.onnx
             self.imgsz = check_img_size(self.imgsz, s=stride) #check image`
@@ -58,12 +57,12 @@ class Tracker:
             if pt:
                 self.model.model.half() if self.half else self.model.model.float()
 
-            self.webcam = self.source == '0' or self.source.startswith('rtsp') or self.source.startwith('http') or self.source.endswith('.txt')
+            self.webcam = self.source.isnumeric() or self.source.startswith('rtsp') or self.source.startwith('http') or self.source.endswith('.txt')
 
             if self.webcam:
                 self.show_vid = check_imshow()
                 cudnn.benchmark = True
-                self.dataset = LoadWebcam(img_size=self.imgsz, stride=stride)
+                self.dataset = LoadWebcam(pipe=self.source, img_size=self.imgsz, stride=stride)
                 bs = len(self.dataset)
             else:
                 self.dataset = LoadImages(self.source, img_size=self.imgsz, stride=stride, auto=pt and not jit)

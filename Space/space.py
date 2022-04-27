@@ -14,8 +14,10 @@ class Space:
 
     def calcBirdsEye(self, image, cornerPts, stageLength, stageWidth):
 
-        self.heightInchPerPixel = stageLength
-        self.widthInchPerPixel = stageWidth
+        self.length = stageLength
+        self.width = stageWidth
+
+        print(cornerPts)
 
         cornerPtsArray = self.__order_points(cornerPts)
 
@@ -36,14 +38,22 @@ class Space:
             [0, maxHeight - 1]], dtype="float32")
 
         self.birdMatrix = cv2.getPerspectiveTransform(cornerPtsArray, img_params)
-        img_transformed = cv2.warpPerspective(image, self.birdMatrix, (maxWidth, maxHeight))
+        resizeImg = cv2.resize(image, (1280, 720))
+        img_transformed = cv2.warpPerspective(resizeImg, self.birdMatrix, (maxWidth, maxHeight))
         self.transformHeight = maxHeight
         self.transformWidth = maxWidth
 
         self.heightInchPerPixel = stageLength / maxHeight
         self.widthInchPerPixel = stageWidth / maxWidth
 
+
+
         self._setup = True
+
+        cv2.imwrite(
+            "C:\\Users\\mattm\\OneDrive - CSULB\\School\\Final Project\\OpenCV test\\Camera calibration test\\resized.png",
+            resizeImg)
+        cv2.imwrite("C:\\Users\\mattm\\OneDrive - CSULB\\School\\Final Project\\OpenCV test\\Camera calibration test\\thrustWarp.png", img_transformed)
 
         logging.info("transform matrix successfully created")
 
@@ -63,10 +73,11 @@ class Space:
 
             xyCoord = list()
             for pt in transformed_points_list:
-                xyCoord.append(pt[0] * self.widthInchPerPixel)
+                xyCoord.append((pt[0] * self.widthInchPerPixel))
                 xyCoord.append(pt[1] * self.heightInchPerPixel)
 
             logging.info('xy coordinates: ' + str(xyCoord))
+            print('xy coordinates: ' + str(xyCoord))
 
             return xyCoord
         logging.error(
@@ -97,18 +108,18 @@ class Space:
 
 if "__main__" == __name__:
     image = cv2.imread(
-        "C:\\Users\\mattm\\OneDrive - CSULB\\School\\Final Project\\OpenCV test\\Camera calibration test\\Monster Stage.png")
-    pts = np.array([(720, 1913), (1147, 1402), (2729, 1395), (3138, 1939)])
+        "C:\\Users\\mattm\\OneDrive - CSULB\\School\\Final Project\\OpenCV test\\Camera calibration test\\studio3.png")
+    pts = np.array([(416, 55), (193, 626), (1151, 621), (966, 35)])
 
     space = Space()
 
-    warped = space.calcBirdsEye(image, pts, 240, 240)
+    warped = space.calcBirdsEye(image, pts, 20, 26)
 
-    space.getxyCoordinates((1632, 1465))
+    space.getxyCoordinates((574, 184))
 
-    cv2.imshow("original", cv2.resize(image, (1920, 1080)))
+    cv2.imshow("original", cv2.resize(image, (1280, 720)))
     cv2.imshow('warped', warped)
     cv2.imwrite(
-        "C:\\Users\\mattm\\OneDrive - CSULB\\School\\Final Project\\OpenCV test\\Camera calibration test\\Monster Stage Warp.png",
+        "C:\\Users\\mattm\\OneDrive - CSULB\\School\\Final Project\\OpenCV test\\Camera calibration test\\thrustWarp.png",
         warped)
     cv2.waitKey(0)

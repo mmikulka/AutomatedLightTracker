@@ -25,8 +25,6 @@ class Project:
         if fixtureNumbers is not None:
             x, y = self.getSubjectPos(outputs, subjectID)
             xycoord = self.space.getxyCoordinates((x, y))
-            print("x coord: ", str(xycoord[0]))
-            print("y coord: ", str(xycoord[1]))
             for fixtureNumber in fixtureNumbers:
                 dmxUpdates = self.lights[fixtureNumber].focusLight(xycoord[0], xycoord[1])
                 self.sacn.updateFixtureValues(self.lights[fixtureNumber].fixtureAddr, dmxUpdates)
@@ -60,3 +58,8 @@ class Project:
         del self.sacn
         self.sacn(ip)
         self.start()
+
+
+if __name__ == '__main__':
+    project = Project()
+

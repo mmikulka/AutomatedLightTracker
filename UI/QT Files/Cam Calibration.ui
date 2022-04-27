@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>651</width>
-    <height>451</height>
+    <width>924</width>
+    <height>469</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -35,7 +35,15 @@ background-color: rgb(161, 161, 161);}</string>
         </font>
        </property>
        <property name="text">
-        <string>This will be the instructions on how to calibrate the camera</string>
+        <string>1.	Print out provided calibration image.
+2.	put the camera on a tripod or similar.
+3.	Place camera facing a blank wall with enough distance so the paper is approximately 1/8 the size of the image.
+4.	Tape the paper to the top right corner of the image.
+5.	Move the paper in a clockwise direction around the outside of the captured area taking 3 pictures per side of the frame.
+6.	Once a complete circle has been completed take 3 pictures with the chess board pattern in the middle of the frame all at slightly different positions.
+7.	load images into the calibration folder. 
+8.	Run calibration test in the folder. 
+</string>
        </property>
       </widget>
      </item>
@@ -69,7 +77,13 @@ background-color: rgb(161, 161, 161);}</string>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox"/>
+        <widget class="QComboBox" name="comboBox">
+         <item>
+          <property name="text">
+           <string>01: USB Camera</string>
+          </property>
+         </item>
+        </widget>
        </item>
       </layout>
      </item>

@@ -70,8 +70,6 @@ class ProjectWindow(QMainWindow):
     def ImageUpdateSlot(self, image):
         self.cameraView.setPixmap(QPixmap.fromImage(image))
 
-    def saveSpace(self, space):
-        self.currentProject.space = space
 
     def launch(self):
         self.show()
@@ -92,9 +90,6 @@ class ProjectWindow(QMainWindow):
         pass
 
     def editFixtures(self):
-        pass
-
-    def selectLights(self):
         pass
 
     def fixtureSelection(self):
@@ -118,11 +113,11 @@ class TrackerThread(QThread):
         # capture = cv2.VideoCapture(0)
         # initialize tracking model
         yoloModel = "Tracker/yolov5/models/yolov5l.pt"
-        deepsortModel = "osnet_x1_0"
+        deepsortModel = "resnet50"
         deepsortConfig = "Tracker/deep_sort/configs/deep_sort.yaml"
-        source = '0'  # webcam
+        source = '1'  # webcam
         classes = 0  # track humans only
-        imgsz = [1920, 1280]
+        imgsz = [1280, 736]
         device = 0
         tracker = Tracker(yoloModel, deepsortModel, deepsortConfig, source, classes, device, imgsz,
                           True)

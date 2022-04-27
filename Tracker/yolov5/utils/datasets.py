@@ -245,6 +245,9 @@ class LoadWebcam:  # for inference
         self.pipe = eval(pipe) if pipe.isnumeric() else pipe
         # self.pipe = 1
         self.cap = cv2.VideoCapture(self.pipe)  # video capture object
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.img_size[0])
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.img_size[1])
+
         self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 3)  # set buffer size
     def __iter__(self):
         self.count = -1
@@ -259,7 +262,7 @@ class LoadWebcam:  # for inference
 
         # Read frame
         ret_val, img0 = self.cap.read()
-        img0 = cv2.flip(img0, 1)  # flip left-right
+        # img0 = cv2.flip(img0, 1)  # flip left-right why flip?
 
         # Print
         assert ret_val, f'Camera Error {self.pipe}'
