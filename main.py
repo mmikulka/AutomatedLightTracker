@@ -10,7 +10,7 @@ def main():
     # startup = UI.startup.StartUp()
     startup = UI.ProjectWindow.ProjectWindow()
     # startup = UI.SpaceSetup.SpaceSetup()
-    startup.show()
+    # startup.show()
     app.exec()
 
 

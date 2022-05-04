@@ -10,13 +10,22 @@ from Tracker.Tracker import Tracker
 import UI.CameraCalibration
 import UI.ArtnetWindow
 import UI.FixtureSelection
+from UI.FixtureWindow import FixtureWindow
 import UI.SpaceSetup
+from UI.startup import StartUp
 
 
 class ProjectWindow(QMainWindow):
     def __init__(self):
         super(ProjectWindow, self).__init__()
         loadUi('UI/QT Files/mainWindow.ui', self)
+
+        # Project class creation
+        self.currentProject = Project()
+
+        self.startup = StartUp()
+        self.startup.show()
+        self.startup.newFile.connect(self.newProject)
 
         # setup subject selector dropdown menu
         self.subjectlist = [-1]
@@ -25,12 +34,9 @@ class ProjectWindow(QMainWindow):
         # setup camera selection dropdown
         self.cameraSelection.addItems(["01: USB Video"])
 
-        # Project class creation
-        self.currentProject = Project()
-
         # setup triggers
         self.actionCalibration.triggered.connect(self.calibrateCam)
-        self.actionArtnet.triggered.connect(self.artnet)
+        self.actionsACN.triggered.connect(self.sACN)
         self.actionDMX.triggered.connect(self.DMX)
         self.selectLights.clicked.connect(self.fixtureSelection)
         self.spaceSetup.clicked.connect(self.setupSpaceWindow)
@@ -70,10 +76,20 @@ class ProjectWindow(QMainWindow):
     def ImageUpdateSlot(self, image):
         self.cameraView.setPixmap(QPixmap.fromImage(image))
 
+    def newProject(self, new):
+        self.spaceWindow = UI.SpaceSetup.SpaceSetup()
+        self.spaceWindow.show()
+        self.spaceWindow.setupSpace.connect(self.newProjectSpace)
 
-    def launch(self):
-        self.show()
-        self.w.show()
+    def newProjectSpace(self, space):
+        self.saveSpace(space)
+        self.fixtureWindow = FixtureWindow()
+        self.fixtureWindow.setupUi(self.currentProject.lights)
+        self.fixtureWindow.show()
+        self.fixtureWindow.closing.connect(self.show)
+
+    def addFixtureWindow(self):
+        pass
 
     def calibrateCam(self):
         self.camcalibration = UI.CameraCalibration.CameraCalibration()
@@ -82,7 +98,7 @@ class ProjectWindow(QMainWindow):
     def cameraSelection(self):
         pass
 
-    def artnet(self):
+    def sACN(self):
         self.artnet = UI.ArtnetWindow.ArtnetWindow()
         self.artnet.show()
 
@@ -115,7 +131,7 @@ class TrackerThread(QThread):
         yoloModel = "Tracker/yolov5/models/yolov5l.pt"
         deepsortModel = "resnet50"
         deepsortConfig = "Tracker/deep_sort/configs/deep_sort.yaml"
-        source = '1'  # webcam
+        source = '0'  # webcam
         classes = 0  # track humans only
         imgsz = [1280, 736]
         device = 0

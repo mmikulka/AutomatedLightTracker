@@ -154,8 +154,7 @@
     <property name="title">
      <string>DMX</string>
     </property>
-    <addaction name="actionDMX"/>
-    <addaction name="actionArtnet"/>
+    <addaction name="actionsACN"/>
    </widget>
    <widget class="QMenu" name="menuCamera">
     <property name="title">
@@ -209,9 +208,9 @@
     <string>DMX</string>
    </property>
   </action>
-  <action name="actionArtnet">
+  <action name="actionsACN">
    <property name="text">
-    <string>Artnet</string>
+    <string>sACN</string>
    </property>
   </action>
  </widget>
