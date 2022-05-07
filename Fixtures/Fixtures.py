@@ -1,5 +1,4 @@
 import numpy as np
-# from SACN import SACN
 import socket
 import time
 
@@ -23,6 +22,8 @@ class Fixture:
         self._dmx_vals[self._pan_offset] = 128
         self._dmx_vals[self._tilt_offset] = 128
         self._dmx_vals[self._intensity_offset] = 255
+        self._tilt_deg_per_dmx = 128 / self._totalTiltDeg
+        self._pan_deg_per_dmx = 255 / self._totalPanDeg
 
         #for Solaspots
         self._dmx_vals[5] = 255
@@ -154,51 +155,75 @@ class Fixture:
         angle = np.rad2deg(rad)
         # convert degree to dmx value
         self._tilt = angle
-        self._dmx_vals[self._tilt_offset] = self.__tilt_angle_to_dmx(self._tilt)
+        # dmx = self.__tilt_angle_to_dmx(self._tilt) # original
+        dmx = self.__tilt_angle_to_dmx16(self._tilt)
+        # self._dmx_vals[self._tilt_offset] = dmx  #original
+        self._dmx_vals[self._tilt_offset] = dmx[0]
+        self._dmx_vals[self._tilt_offset + 1] = dmx[1]
 
     def __calc_pan(self, x, y):
-        cosTh = np.dot(self._panVect, (x, y))
-        sinTh = np.cross(self._panVect, (x, y))
-        angle = np.rad2deg(np.arctan2(sinTh, cosTh))
-        self._pan = self._pan - angle
-        self._panVect = (x, y)
-        print("angle change: " + str(angle))
-        print("New Angle: " + str(self._pan))
-        self._dmx_vals[self._pan_offset] = self.__pan_angle_to_dmx(self._pan)
+        if x != 0 and y != 0:
+            cosTh = np.dot(self._panVect, (x, y))
+            sinTh = np.cross(self._panVect, (x, y))
+            angle = np.rad2deg(np.arctan2(sinTh, cosTh))
+            self._pan = self._pan - angle
+            self._panVect = (x, y)
+            # print("angle change: " + str(angle))
+            # print("New Angle: " + str(self._pan))
+            # dmx = self.__pan_angle_to_dmx(self._pan) # original
+            dmx = self.__pan_angle_to_dmx16(self._pan)
+            # self._dmx_vals[self._pan_offset] = dmx # original
+            self._dmx_vals[self._pan_offset] = dmx[0]
+            self._dmx_vals[self._pan_offset + 1] = dmx[1]
 
     # calculate the dmx value for specified angle
     def __pan_angle_to_dmx(self, angle):
-        return int(angle * (255.0 / self._totalPanDeg))
+        return int(angle * self._pan_deg_per_dmx)
+
+    def __pan_angle_to_dmx16(self, angle):
+        dmx = angle * self._pan_deg_per_dmx
+        first = int(dmx)
+        second = int((dmx % 1) * 255)
+        return [first, second]
 
     # calculate the dmx value for specified angle
     def __tilt_angle_to_dmx(self, angle):
-        return 128 - int(angle * (128.0 / self._totalTiltDeg))
+        return 128 - int(angle * self._tilt_deg_per_dmx)
+
+    # calc
+    def __tilt_angle_to_dmx16(self, angle):
+        dmx = angle * self._tilt_deg_per_dmx
+        first = 128 - int(dmx)
+        second = int((dmx % 1) * 255)
+        return [first, second]
 
 
 if __name__ == "__main__":
+    from SACN import SACN
     lights = [Fixture((0, 0, 28), 37, 0, 2, 43, 1, 44, 540, 270, "Solaspot")]
     sacn = SACN(socket.gethostbyname(socket.gethostname()))
     sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
     sacn.updatePacket()
     time.sleep(1)
-    lights[0].focusLight(3, 15, 5)
-    sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
-    print(lights[0].dmxValues())
-    sacn.updatePacket()
-    time.sleep(1)
-    lights[0].focusLight(13, 15, 5)
-    sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
-    print(lights[0].dmxValues())
-    sacn.updatePacket()
-    time.sleep(1)
-    lights[0].focusLight(16, 25, 5)
-    sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
-    print(lights[0].dmxValues())
-    sacn.updatePacket()
-    time.sleep(1)
-    lights[0].focusLight(0, 0, 5)
-    sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
-    print(lights[0].dmxValues())
-    sacn.updatePacket()
-    time.sleep(10)
+    for i in range (200):
+        lights[0].focusLight(3, 15, 5)
+        sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
+        print(lights[0].dmxValues())
+        sacn.updatePacket()
+        time.sleep(1)
+        lights[0].focusLight(13, 15, 5)
+        sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
+        print(lights[0].dmxValues())
+        sacn.updatePacket()
+        time.sleep(1)
+        lights[0].focusLight(16, 25, 5)
+        sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
+        print(lights[0].dmxValues())
+        sacn.updatePacket()
+        time.sleep(1)
+        lights[0].focusLight(0, 0, 5)
+        sacn.updateFixtureValues(lights[0].fixtureAddr, lights[0].dmxValues())
+        print(lights[0].dmxValues())
+        sacn.updatePacket()
+        time.sleep(10)
     sacn.stop()

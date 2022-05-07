@@ -8,7 +8,7 @@ import Camera.CameraCalibration
 
 class Project:
     def __init__(self):
-        self.lights = [Fixture((0, 0, 28), 37, 0, 2, 43, 1, 44, 540, 270, "Solaspot")]
+        self.lights = [Fixture((1, -2, 28), 37, 0, 2, 43, 1, 44, 540, 270, "Solaspot")]
         self.sacn = SACN(socket.gethostbyname(socket.gethostname()))
         # self.sacn = SACN("10.101.50.120")
         self.sacn.updateFixtureValues(self.lights[0].fixtureAddr,self.lights[0].dmxValues())

@@ -57,19 +57,25 @@ class ProjectWindow(QMainWindow):
     def updateSubjects(self, data):
         if data is not None:
             newsubjects = []
+            # create a list will all found subject in it.
             for row in data:
                 newsubjects.append(row[4])
+            # go through the list of subject that are in the currently in the subject class subject list
+            # to see if the program doesn't find them any more.
             for subject in self.subjectlist:
                 if newsubjects.count(subject) == 0 and subject != -1:
                     self.subjectlist.remove(subject)
                     index = self.subjectSelector.findText("Subject: " + str(subject))
                     self.subjectSelector.removeItem(index)
+
+            # loop through each entry in new subjects to see if they are in the subject list
             for subject in newsubjects:
                 if self.subjectlist.count(subject) == 0:
                     self.subjectlist.append(subject)
                     self.subjectSelector.addItems(["Subject: " + str(subject)])
         else:
             self.subjectSelector.clear()
+            self.subjectlist = [-1]
             self.subjectSelector.addItems(["None"])
 
 
@@ -147,7 +153,7 @@ class TrackerThread(QThread):
                 convertToQtFormat = QImage(FlippedImage.data, FlippedImage.shape[1], FlippedImage.shape[0],
                                            QImage.Format.Format_RGB888)
                 pic = convertToQtFormat.scaled(1088, 736, Qt.AspectRatioMode.KeepAspectRatio)
-                print(outputs)
+                # print(outputs)
                 self.imageUpdate.emit(pic)
                 self.trackingData.emit(outputs)
 

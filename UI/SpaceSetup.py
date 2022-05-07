@@ -72,5 +72,5 @@ class SpaceSetup(QDialog):
         if self.space.setup:
             self.setupSpace.emit(self.space)
 
-        print(self.space)
+        # print(self.space)
         self.close()

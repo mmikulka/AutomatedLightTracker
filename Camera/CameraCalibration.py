@@ -21,12 +21,12 @@ class Camera:
 
         for image in images:
 
-            print(image)
+            # print(image)
             img = cv2.imread(image)
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             # Find the chess board corners
             ret, corners = cv2.findChessboardCorners(gray, self.chessboardSize, None)
-            print(ret)
+            # print(ret)
 
             # If found, add object points, image points (after refining them)
             if ret:
@@ -71,7 +71,7 @@ class Camera:
             error = cv2.norm(self.imgPts[i], imgpoints2, cv2.NORM_L2) / len(imgpoints2)
             mean_error += error
 
-        print("total error: {}".format(mean_error / len(self.objPts)))
+        # print("total error: {}".format(mean_error / len(self.objPts)))
 
         return dst
 

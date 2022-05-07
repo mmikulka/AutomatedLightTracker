@@ -13,7 +13,7 @@ class FixtureWindow(QWidget):
     newFixtureList = pyqtSignal(object)
 
     def setupUi(self, fixtures):
-        self.resize(640, 480)
+        self.resize(1240, 480)
         self.setStyleSheet("QPushButton{\n"
                            "border-radius: 8px;\n"
                            "background-color: rgb(161, 161, 161);\n"
@@ -23,15 +23,15 @@ class FixtureWindow(QWidget):
 
         #widget
         self.fixtureTable = QtWidgets.QTableView()
-        self.editFixture = QtWidgets.QPushButton("editFixture", clicked=self.editFixture)
+        self.editFixture = QtWidgets.QPushButton("Edit Fixture", clicked=self.editFixture)
         self.editFixture.setMinimumSize(QtCore.QSize(0, 20))
         self.addFixture = QtWidgets.QPushButton("Add Fixture", clicked=self.addFixture)
         self.addFixture.setMinimumSize(QtCore.QSize(0, 20))
-        self.removeFixtureBtn = QtWidgets.QPushButton("removeFixture", clicked=self.removeFixture)
+        self.removeFixtureBtn = QtWidgets.QPushButton("Remove Fixture", clicked=self.removeFixture)
         self.removeFixtureBtn.setMinimumSize(QtCore.QSize(0, 20))
         self.sACN = QtWidgets.QPushButton("sACN", clicked=self.updatesACN)
         self.sACN.setMinimumSize(QtCore.QSize(0, 20))
-        self.closeBtn = QtWidgets.QPushButton("CloseBtn", clicked=self.closeWindow)
+        self.closeBtn = QtWidgets.QPushButton("Confirm", clicked=self.closeWindow)
         self.closeBtn.setMinimumSize(QtCore.QSize(0, 20))
 
         #layout
@@ -177,7 +177,7 @@ class FixtureEditorWindow(QDialog):
         panOff = self.panOffset.text()
         tiltOff = self.tiltOffset.text()
         intensOff = self.intensityOffset.text()
-        print(zRot)
+        # print(zRot)
 
 
 data = Fixture((0, 0, 28), 37, 0, 2, 43, 1, 44, 540, 270, "Solaspot")
