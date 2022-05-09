@@ -55,6 +55,7 @@ class ProjectWindow(QMainWindow):
             self.currentProject.trackSubject(data, subjectToTrack)
 
     def updateSubjects(self, data):
+
         if data is not None:
             newsubjects = []
             # create a list will all found subject in it.
@@ -95,7 +96,9 @@ class ProjectWindow(QMainWindow):
         self.fixtureWindow.closing.connect(self.show)
 
     def addFixtureWindow(self):
-        pass
+        self.fixtureWindow = FixtureWindow()
+        self.fixtureWindow.setupUi(self.currentProject.lights)
+        self.fixtureWindow.show()
 
     def calibrateCam(self):
         self.camcalibration = UI.CameraCalibration.CameraCalibration()
