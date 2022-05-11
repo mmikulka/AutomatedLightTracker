@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QDialog, QFileDialog
 from PyQt6.uic import loadUi
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
-from Space.space import Space
+from Project.Space.space import Space
 import numpy as np
 import cv2
 

@@ -1,10 +1,10 @@
-from PyQt6.QtWidgets import QDialog, QApplication, QWidget, QTableView, QVBoxLayout
+from PyQt6.QtWidgets import QDialog, QApplication, QWidget
 from PyQt6.QtCore import QAbstractTableModel, Qt
 from PyQt6 import QtCore
 from PyQt6 import QtWidgets
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.uic import loadUi
-from Fixtures.Fixtures import Fixture
+from Project.Fixtures.Fixtures import Fixture
 import sys
 
 

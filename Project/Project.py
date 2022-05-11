@@ -1,9 +1,7 @@
-import Tracker.Tracker
-from Fixtures.Fixtures import Fixture
-from Fixtures.SACN import SACN
-from Space.space import Space
+from Project.Fixtures.Fixtures import Fixture
+from Project.Fixtures.SACN import SACN
+from Project.Space.space import Space
 import socket
-import Camera.CameraCalibration
 
 
 class Project:
