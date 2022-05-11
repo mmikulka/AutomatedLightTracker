@@ -7,14 +7,14 @@ This repository contains an GUI driven open CV based tracker to that allows the 
 ## Before you run the tracker
 
 1. clone the repository:
-'git clone https://github.com/mmikulka/AutomatedLightTracker.git'
+`git clone https://github.com/mmikulka/AutomatedLightTracker.git`
 2. make sure that all the requirements have been fulfilled:
       - python 3.8 or later and all dependencies within requirements.txt
       'pip install -r requirements.txt'
 
 ## Running the Applictaion
 
-'python main.py'
+`python main.py`
 
 ## Instructions
 
@@ -24,8 +24,8 @@ Startup Window:
 </div>
 
 This window gives you the choice to open an already saved file, open a new project, or Calibrate a camera
-
-Tracking Area Setup:
+<lb></lb>
+<lb>Tracking Area Setup:</lb>
 <div align="center">
 <img src="Screen Captures/Space Setup.png" width="400"/>
 </div>
@@ -38,7 +38,7 @@ to the correct text field. Once that is complete the height and width of the tra
 be entered into the height and width field.
 
 
-Fixture List:
+<lb>Fixture List:</lb>
 <div align="center">
 <img src="Screen Captures/fixture list.png" width="300"/>
 </div>
@@ -46,7 +46,8 @@ The fixture list will list all the fixtures that are currently in the project. F
 2000 fixture is listed in the fixture list when opening a new show. Adding a fixture, editing, and removing a
 fixture is still be worked on.
 
-Main Window:
+<lb>Main Window:</lb>
+
 <div align="center">
 <img src="Screen Captures/Main Window.png" width="300"/>
 </div>
