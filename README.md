@@ -20,7 +20,7 @@ This repository contains an GUI driven open CV based tracker to that allows the 
 
 Startup Window:
 <div align="center">
-<img src="Screen Captures/startup.png" width="300"/>
+<img src="Screen Captures/Startup.png" width="300"/>
 </div>
 
 This window gives you the choice to open an already saved file, open a new project, or Calibrate a camera
