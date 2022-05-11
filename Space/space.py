@@ -108,8 +108,8 @@ class Space:
 
 if "__main__" == __name__:
     image = cv2.imread(
-        "C:\\Users\\mattm\\OneDrive - CSULB\\School\\Final Project\\OpenCV test\\Camera calibration test\\studio3.png")
-    pts = np.array([(416, 55), (193, 626), (1151, 621), (966, 35)])
+        "C:\\Users\\mattm\\OneDrive - CSULB\\School\\Final Project\\OpenCV test\\Camera calibration test\\studio6.png")
+    pts = np.array([(426, 148), (262, 635), (1031, 615), (873, 131)])
 
     space = Space()
 

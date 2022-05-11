@@ -50,12 +50,19 @@ class FixtureWindow(QWidget):
 
         # convert fixture list to 2D list to setup fixture table
         fixtureList = []
-        for fixture in fixtures:
+        for fixture in self.fixtures:
             fixtureList.append(fixture.asList())
         fixtureModel = qtFixtureTable(fixtureList)
         self.fixtureTable.setModel(fixtureModel)
 
     def editFixture(self):
+        self.fixtureEditWindow = FixtureEditorWindow()
+        indexes = self.fixtureTable.selectionModel().selectedRows()
+        fixture = self.fixtures[indexes[0].row()]
+        self.fixtureEditWindow.addFixtureInfo(fixture)
+        self.fixtureEditWindow.show()
+        # take fixture objecte add it to fixture list
+        # self.fixtureEditWindow.newFixture.connect(self.addFixToList)
         pass #implemented later
 
     def addFixture(self):
@@ -67,9 +74,24 @@ class FixtureWindow(QWidget):
 
     def addFixToList(self, fixture):
         self.fixtures.append(fixture)
+        fixtureList = []
+        for fixture in self.fixtures:
+            fixtureList.append(fixture.asList())
+        fixtureModel = qtFixtureTable(fixtureList)
+        self.fixtureTable.setModel(fixtureModel)
 
     def removeFixture(self):
-        pass
+        indexes = self.fixtureTable.selectionModel().selectedRows()
+        for index in sorted(indexes, reverse=True):
+            self.fixtures.pop(index.row())
+        fixtureList = []
+        for fixture in self.fixtures:
+            fixtureList.append(fixture.asList())
+        if (len(fixtureList)):
+            fixtureModel = qtFixtureTable(fixtureList)
+            self.fixtureTable.setModel(fixtureModel)
+
+
 
     def updatesACN(self):
         pass
@@ -128,6 +150,7 @@ class FixtureEditorWindow(QDialog):
     def __init__(self, fixture=None):
         super(FixtureEditorWindow, self).__init__()
         loadUi('UI/QT Files/fixture Setup.ui', self)
+        # loadUi('QT Files/fixture Setup.ui', self)
         # all boxes should be empty
         self.saveButton.clicked.connect(self.saveFixture)
         self.cancelButton.clicked.connect(self.close)
@@ -135,18 +158,20 @@ class FixtureEditorWindow(QDialog):
 
     def addFixtureInfo(self, fixture):
         self.FixtureName.setText(fixture.fixtureName)
-        self.zPos.setText(fixture.position[2])
+        self.zPos.setText(str(fixture.position[2]))
         self.zRot.setText('0')
-        self.xPos.setText(fixture.position[0])
+        self.xPos.setText(str(fixture.position[0]))
         self.xRot.setText('0')
-        self.yPos.setText(fixture.position[1])
+        self.yPos.setText(str(fixture.position[1]))
         self.yRot.setText('0')
-        self.totalNumAddresses.setText(fixture.totalNumAddr())
-        self.startAddress.setText(fixture.fixtureAddr)
-        self.Universe.setText(fixture.universe)
-        self.panOffset.setText(fixture.panOffset)
-        self.tiltOffset.setText(fixture.tiltOffset)
-        self.intensityOffset.setText(fixture.intensityOffset)
+        self.totalNumAddresses.setText(str(fixture.totalNumAddr()))
+        self.startAddr.setText(str(fixture.fixtureAddr))
+        self.Universe.setText(str(fixture.universe))
+        self.panOffset.setText(str(fixture.panOffset))
+        self.tiltOffset.setText(str(fixture.tiltOffset))
+        self.intensityOffset.setText(str(fixture.intensityOffset))
+        self.tiltDegrees.setText(str(fixture._totalTiltDeg))
+        self.panDegrees.setText(str(fixture._totalPanDeg))
 
         # self.manufacturer
         # self.FixtureName
@@ -165,19 +190,23 @@ class FixtureEditorWindow(QDialog):
 
     def saveFixture(self):
         fixName = self.FixtureName.text()
-        zpos = self.zPos.text()
-        zRot = self.zRot.text()
-        xPos = self.xPos.text()
-        xRot = self.xRot.text()
-        yPos = self.yPos.text()
-        yRot = self.yRot.text()
-        numAddr = self.totalNumAddresses.text()
-        startAddr = self.startAddr.text()
-        universe = self.Universe.text()
-        panOff = self.panOffset.text()
-        tiltOff = self.tiltOffset.text()
-        intensOff = self.intensityOffset.text()
-        # print(zRot)
+        zpos = int(self.zPos.text())
+        zRot = int(self.zRot.text())
+        xPos = int(self.xPos.text())
+        xRot = int(self.xRot.text())
+        yPos = int(self.yPos.text())
+        yRot = int(self.yRot.text())
+        numAddr =int(self.totalNumAddresses.text())
+        startAddr = int(self.startAddr.text())
+        universe = int(self.Universe.text())
+        panOff = int(self.panOffset.text())
+        tiltOff = int(self.tiltOffset.text())
+        intensOff = int(self.intensityOffset.text())
+        tiltDeg = int(self.tiltDegrees.text())
+        panDeg = int(self.panDegrees.text())
+        self.newFixture.emit(Fixture((xPos, yPos, zpos), intensOff, panOff, tiltOff, numAddr, universe, startAddr,
+                                     tiltDeg, panDeg, fixName))
+        self.close()
 
 
 data = Fixture((0, 0, 28), 37, 0, 2, 43, 1, 44, 540, 270, "Solaspot")

@@ -4,7 +4,7 @@ import time
 
 class Fixture:
     def __init__(self, position: list, intensityAddr: int, panAddr: int, tiltAddr: int, totalNumAddresses: int,
-                 universe: int, fixtureAddr: int, totalPanDeg: float, totalTiltDeg: float, fixtureName="N/A"):
+                 universe: int, fixtureAddr: int, totalPanDeg: int, totalTiltDeg: int, fixtureName="N/A"):
         self._pos = position
         self._intensity_offset = intensityAddr
         self._pan_offset = panAddr
