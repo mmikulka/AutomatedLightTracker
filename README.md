@@ -25,7 +25,7 @@ This repository contains an GUI driven open CV based tracker to that allows the 
 
 This window gives you the choice to open an already saved file, open a new project, or Calibrate a camera
 
-###Tracking Area Setup:
+Tracking Area Setup:
 <div align="center">
 <img src="Screen Captures/Space Setup.png" width="400"/>
 </div>
@@ -38,7 +38,7 @@ to the correct text field. Once that is complete the height and width of the tra
 be entered into the height and width field.
 
 
-###Fixture List:
+Fixture List:
 <div align="center">
 <img src="Screen Captures/fixture list.png" width="300"/>
 </div>
@@ -46,7 +46,7 @@ The fixture list will list all the fixtures that are currently in the project. F
 2000 fixture is listed in the fixture list when opening a new show. Adding a fixture, editing, and removing a
 fixture is still be worked on.
 
-###Main Window:
+Main Window:
 <div align="center">
 <img src="Screen Captures/Main Window.png" width="300"/>
 </div>
@@ -60,7 +60,7 @@ upper left will allow the user to select the camera they wish to use. The menu b
 you to access the sACN prtocal window, Camera calibration Window, Fixture list, and file system information.
 *Note: not all features are currently working*
 
-###Camera Calibration
+Camera Calibration
 <div align="center">
 <img src="Screen Captures/camera Calibration.png" width="300"/>
 </div>
