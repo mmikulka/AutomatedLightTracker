@@ -14,7 +14,7 @@ This repository contains an GUI driven open CV based tracker to that allows the 
 
 ## Running the Applictaion
 
-`python main.py`
+`python AutoLightTracker.py`
 
 ## Instructions
 
