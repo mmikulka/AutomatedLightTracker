@@ -18,7 +18,7 @@ This repository contains an GUI driven open CV based tracker to that allows the 
 
 ## Instructions
 
-###Startup Window:
+Startup Window:
 <div align="center">
 <img src="Screen Captures/startup.png" width="300"/>
 </div>
