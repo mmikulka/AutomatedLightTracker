@@ -9,7 +9,8 @@ This repository contains an GUI driven open CV based tracker to that allows the 
 1. clone the repository:
 `git clone https://github.com/mmikulka/AutomatedLightTracker.git`
 2. make sure that all the requirements have been fulfilled:
-      - python 3.8 or later and all dependencies within requirements.txt
+      - python 3.8 or later and all dependencies within requirements.txt and pytorch
+      'pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113'
       'pip install -r requirements.txt'
 
 ## Running the Applictaion
