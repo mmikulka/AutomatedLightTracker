@@ -148,7 +148,7 @@
     <property name="title">
      <string>Fixtures</string>
     </property>
-    <addaction name="actionEdit"/>
+    <addaction name="actionFixtures"/>
    </widget>
    <widget class="QMenu" name="menuDMX">
     <property name="title">
@@ -193,7 +193,7 @@
     <string>Save As</string>
    </property>
   </action>
-  <action name="actionEdit">
+  <action name="actionFixtures">
    <property name="text">
     <string> Edit Fixtures</string>
    </property>

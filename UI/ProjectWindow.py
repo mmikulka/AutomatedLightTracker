@@ -38,6 +38,7 @@ class ProjectWindow(QMainWindow):
         self.actionCalibration.triggered.connect(self.calibrateCam)
         self.actionsACN.triggered.connect(self.sACN)
         self.actionDMX.triggered.connect(self.DMX)
+        self.actionFixtures.triggered.connect(self.addFixtureWindow)
         self.selectLights.clicked.connect(self.fixtureSelection)
         self.spaceSetup.clicked.connect(self.setupSpaceWindow)
 
