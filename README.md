@@ -2,7 +2,7 @@
 
 
 ## Introduction
-This repository contains an GUI driven open CV based tracker to that allows the tracking of a subject on a stage with only a camera, capture card and computer. The Trackingn algorithm is based on [Mike-Bronstrom's implementation of the YOLOv5 and Deep Sort with OSNet repository](https://github.com/mikel-brostrom/Yolov5_DeepSort_OSNet). The application is still in the early stages of development, so not all functionality is implemented.
+This repository contains an GUI driven open CV based tracker to that allows the tracking of a subject on a stage with only a camera, capture card and computer. The Tracking algorithm is based on [Mike-Bronstrom's implementation of the YOLOv5 and Deep Sort with OSNet repository](https://github.com/mikel-brostrom/Yolov5_DeepSort_OSNet). The application is still in the early stages of development, so not all functionality is implemented.
 
 ## Before you run the tracker
 
